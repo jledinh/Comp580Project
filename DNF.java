@@ -1,5 +1,4 @@
-
-
+package com.examples.cloud.speech;
 import javax.swing.*;
 
 import org.apache.commons.cli.CommandLine;
@@ -27,7 +26,7 @@ import java.util.List;
 import java.util.concurrent.Executors;
 
 
-public class DNF extends JFrame implements KeyListener{ // implements Runnable{	
+public class dnf extends JFrame implements KeyListener{ // implements Runnable{	
 	private JPanel titlePanel, textPanel, checkPanel;
 	private JLabel titleLabel, textLabel, checkLabel;
 	private JTextField inputText,checkText;
@@ -35,7 +34,7 @@ public class DNF extends JFrame implements KeyListener{ // implements Runnable{
 	public static ArrayList<String> wordsList= new ArrayList<String>();
 	int position;
 	int i=0;
-	public DNF(TemplateConverter a){
+	public dnf(TemplateConverter a){
 		t = a;
 		createPanel();
 		setTitle("Diction N' Fiction");
@@ -98,12 +97,12 @@ public class DNF extends JFrame implements KeyListener{ // implements Runnable{
 	public static void main(final String[] args) {
 		SwingUtilities.invokeLater(new Runnable() {
 			public void run() {
-				TemplateConverter t = new TemplateConverter("/Users/****/Documents/workspace/hello/src/main/java/test.txt");
+				TemplateConverter t = new TemplateConverter("/Users/jledinh/Documents/hello/src/main/java/file.txt");
 	
 					//speechRun(args);
 	
 				
-				new DNF(t);
+				new dnf(t);
 				
 				
 			}
@@ -195,10 +194,6 @@ public class DNF extends JFrame implements KeyListener{ // implements Runnable{
             System.err.println("Unexpected exception:" + exp.getMessage());
             System.exit(1);
           }
-        
-          	
-       
-          	
          
           
           ManagedChannel channel = createChannel(host, port);
@@ -207,25 +202,13 @@ public class DNF extends JFrame implements KeyListener{ // implements Runnable{
           System.out.println("reach");
             client.recognize();
             System.out.println("reach12");
-          
+         wordsList = client.wordsList; 
          return client.wordsList.get(i);
        
           } finally {
-        	 
-          //	TemplateConverter t = new TemplateConverter("/Users/*/Documents/workspace/hello/src/main/java/"+file);
-          //	wordsList.remove(wordsList.size()-1);
-    //      	System.out.println(wordsList);
-    //      	if(wordsList.size()==10){
           	client.shutdown();
           	 i++;
-    //      	run=false;	
-          		
           	}
-//          	t.InsertField(wordsList);
-//          	System.out.println(t.everything);
-             //	System.out.println(wordsList);
-             	//System.out.println("Hi, my name is " + wordsList.get(0) + " and I like to eat " + wordsList.get(1) + ". I go to UNC and I have"+ wordsList.get(2) + " dogs." );
-        //    client.shutdown();
           }
     	
     	
@@ -235,15 +218,17 @@ public class DNF extends JFrame implements KeyListener{ // implements Runnable{
 		// TODO Auto-generated method stub
 		String args[]= null;
 		if (e.getKeyChar() == KeyEvent.VK_ENTER) {
-            System.out.println(position);
-            if (position != t.getField().size() - 1) {
+            //System.out.println(position);
+            if (position != t.getField().size()) {
             	position += 1;
-            	textLabel.setText(t.getField().get(position));
-            	
-            	validate();
-            	repaint();
+            	if (position != 6) {
+            		textLabel.setText(t.getField().get(position));
+            	}
+            	//validate();
+            	//repaint();
             	try {
 					inputText.setText(speechRun(args));
+					
 				} catch (InterruptedException e1) {
 					// TODO Auto-generated catch block
 					e1.printStackTrace();
@@ -255,12 +240,17 @@ public class DNF extends JFrame implements KeyListener{ // implements Runnable{
             	repaint();
             }
             else {
+            	for (int i=0;i<wordsList.size();i++) {
+            		System.out.println(wordsList.get(i));
+            	}
+            	t.InsertField(wordsList);
             	textLabel.setText(t.everything);
+            	textLabel.setFont(new Font("Arial", Font.PLAIN, 12));
             	validate();
             	repaint();
             }
         }
-		System.out.println(e.getID());
+		//System.out.println(e.getID());
 	//	System.out.println("hi");
 		if (e.getKeyChar() == KeyEvent.VK_A) {
            // System.out.println(position);
