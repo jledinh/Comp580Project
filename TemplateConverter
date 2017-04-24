@@ -1,3 +1,4 @@
+package com.examples.cloud.speech;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -17,6 +18,7 @@ public class TemplateConverter {
 	private ArrayList<String> fieldlist;
 	private ArrayList<String> inputs;
 	TemplateConverter(String path) {
+		everything = "";
 		lines = null;
 		file = Paths.get(path);
 		try { //reads in all of the lines
@@ -69,6 +71,13 @@ public class TemplateConverter {
 		}
 	}
 	
+	public void Print() {
+		System.out.println(everything);
+	}
+	public int FieldSize() {
+		return fieldlist.size();
+	}
+	
 	public void Speak() {
 		TextToSpeech tts = new TextToSpeech();
 		// Setting the Voice
@@ -76,5 +85,9 @@ public class TemplateConverter {
 
 		// TTS say something that we actually are typing into the first variable
 		tts.speak(everything, 2.0f, false, true);
+	}
+	
+	public ArrayList<String> getField() {
+		return fieldlist;
 	}
 }
