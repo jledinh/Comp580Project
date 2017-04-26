@@ -72,16 +72,13 @@ public class dnf extends JFrame implements KeyListener{ // implements Runnable{
 		textLabel = new JLabel(t.getField().get(position), SwingConstants.CENTER); //SwingConstants.CENTER
 		textLabel.setPreferredSize(new Dimension(400, 800));
 		textLabel.setFont(new Font("Arial", Font.BOLD, 48));
-		//		textLabel.setHorizontalTextPosition(JLabel.CENTER);
-		//		textLabel.setVerticalTextPosition(JLabel.CENTER);
 		textPanel.add(textLabel);
 
 		inputLabel = new JLabel();
 		inputLabel.setPreferredSize(new Dimension(400, 800));
-		inputLabel.setText("Batman");
+//		inputLabel.setText("Batman");
 		inputLabel.setFont(new Font("Arial", Font.BOLD, 48));
-//		inputLabel.setHorizontalTextPosition(JLabel.CENTER);
-//		inputLabel.setVerticalTextPosition(JLabel.CENTER);
+		inputLabel.setHorizontalAlignment(SwingConstants.CENTER);
 		textPanel.add(inputLabel);
 
 //		inputText = new JTextField();
