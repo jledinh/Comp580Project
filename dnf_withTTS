@@ -261,7 +261,7 @@ public class dnf2 extends JFrame implements KeyListener{ // implements Runnable{
 				}
 				validate();
 				repaint();
-				speak(t.everything, "/Users/jledinh/Documents/everything.mp3");
+				
 			}
 			else if (position==t.getField().size()) {
 				for (int i=0;i<wordsList.size();i++) {
@@ -286,7 +286,7 @@ public class dnf2 extends JFrame implements KeyListener{ // implements Runnable{
 				revalidate();
 				repaint();
 				position++;
-				
+				speak(t.everything, "/Users/jledinh/Documents/everything.mp3");
 			}
 			else{
 				
