@@ -1,4 +1,4 @@
-package com.examples.cloud.speech;
+package fsdf;
 import javax.swing.*;
 
 import org.apache.commons.cli.CommandLine;
@@ -26,7 +26,12 @@ import java.util.List;
 import java.util.concurrent.Executors;
 
 public class dnf2 extends JFrame implements KeyListener{ // implements Runnable{
-	final String []mp3s = {"adjective.mp3", "noun.mp3", "food.mp3", "animal.mp3", "number.mp3", "noun.mp3"};
+//	final String []mp3s = {"adjective.mp3", "noun.mp3", "food.mp3", "animal.mp3", "number.mp3", "noun.mp3"};
+	//sports competition file
+//	final String []mp3s = {"name.mp3", "sport.mp3", "adjective.mp3", "place.mp3", "number.mp3", "number.mp3", 
+//			"animal.mp3", "name.mp3", "adjective.mp3", "verb_ed.mp3", "adverb.mp3"};
+	
+	final String []mp3s = {"name.mp3", "sport.mp3", "adjective.mp3", "place.mp3"};
 	private JPanel titlePanel, textPanel, checkPanel; // storyPanel;
 	private JLabel titleLabel, textLabel, checkLabel, inputLabel, storyLabel;
 	private JTextField inputText,checkText;
@@ -134,15 +139,15 @@ public class dnf2 extends JFrame implements KeyListener{ // implements Runnable{
 		checkLabel.setPreferredSize(new Dimension(300, 450));
 		checkLabel.setFont(new Font("Arial", Font.BOLD, 24));
 		checkPanel.add(checkLabel); */
-		speak("/Users/jledinh/Documents/dnf_mp3/start.mp3");
-		speak("/Users/jledinh/Documents/dnf_mp3/"+mp3s[position]);
+		speak("/Users/annaxu/Documents/dnf_mp3/start.mp3");
+		speak("/Users/annaxu/Documents/dnf_mp3/"+mp3s[position]);
 	}
 	
 	/*Runs the main code to create the gui*/
 	public static void main(final String[] args) {
 		SwingUtilities.invokeLater(new Runnable() {
 			public void run() {
-				TemplateConverter t = new TemplateConverter("/Users/jledinh/Documents/hello/src/main/java/file.txt");
+				TemplateConverter t = new TemplateConverter("/Users/annaxu/Documents/workspace/test/src/main/java/fsdf/file2.txt");
 
 				//speechRun(args);
 				new dnf2(t);
@@ -262,11 +267,13 @@ public class dnf2 extends JFrame implements KeyListener{ // implements Runnable{
 				}
 				validate();
 				repaint();
-				speak("/Users/jledinh/Documents/dnf_mp3/"+mp3s[position]);
+				if (position != t.getField().size()) {
+					speak("/Users/annaxu/Documents/dnf_mp3/"+mp3s[position]);
+				}
 			}
 			else if (position==t.getField().size()) {
 				for (int i=0;i<wordsList.size();i++) {
-					wordsList.set(i, wordsList.get(i).replace("\n", ""));
+					//wordsList.set(i, wordsList.get(i).replace("\n", ""));
 					System.out.println(wordsList.get(i));
 				}
 				t.InsertField(wordsList);
@@ -279,9 +286,13 @@ public class dnf2 extends JFrame implements KeyListener{ // implements Runnable{
 				//alignment
 				//textPanel.add(textLabel);
 				*/
-				storyArea = new JTextArea();
+				
+				storyArea = new JTextArea(50, 40);
 				storyArea.setText(t.everything);
-				storyArea.setFont(new Font("Arial",Font.BOLD, 24));
+				storyArea.setFont(new Font("Arial", Font.BOLD, 36));
+			//	storyArea.set
+				storyArea.setMargin(new Insets(50,50,50,50));
+				storyArea.setBackground(new Color(0xe9c97e));
 				storyArea.setLineWrap(true);
 				storyArea.setWrapStyleWord(true);
 				
@@ -296,7 +307,7 @@ public class dnf2 extends JFrame implements KeyListener{ // implements Runnable{
 				repaint();
 				position++;
 				try {
-					TextToMp3 ttm = new TextToMp3(t.everything, "/Users/jledinh/Documents/dnf_mp3/everything.mp3");
+					TextToMp3 ttm = new TextToMp3(t.everything, "/Users/annaxu/Documents/dnf_mp3/everything.mp3");
 					speak(ttm.pathname);
 				} catch (Exception e1) {
 					// TODO Auto-generated catch block
