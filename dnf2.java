@@ -1,4 +1,4 @@
-package fsdf;
+package com.examples.cloud.speech;
 import javax.swing.*;
 
 import org.apache.commons.cli.CommandLine;
@@ -26,11 +26,12 @@ import java.util.List;
 import java.util.concurrent.Executors;
 
 
-public class dnf extends JFrame implements KeyListener{ // implements Runnable{	
+public class dnf2 extends JFrame implements KeyListener{ // implements Runnable{	
 	private JPanel titlePanel, textPanel, checkPanel; // storyPanel;
 	private JLabel titleLabel, textLabel, checkLabel, inputLabel, storyLabel;
 	private JTextField inputText,checkText;
 	private TemplateConverter t;
+	private JTextArea storyArea;
 	public static ArrayList<String> wordsList= new ArrayList<String>();
 	int position;
 	int i=0;
@@ -39,10 +40,10 @@ public class dnf extends JFrame implements KeyListener{ // implements Runnable{
 	private Integer port;
 	private Integer sampling;
 	private Options options;
-
 	
 	
-	public dnf(TemplateConverter a){
+	
+	public dnf2(TemplateConverter a){
 		t = a;
 		createPanel();
 		setTitle("Diction N' Fiction");
@@ -54,6 +55,8 @@ public class dnf extends JFrame implements KeyListener{ // implements Runnable{
 		setVisible(true);
 		setFocusable(true);
 		position = 0;
+		
+		/*Establishes the connection for the client*/
 		parser = new DefaultParser();
 		host = null;
 		port = null;
@@ -132,18 +135,17 @@ public class dnf extends JFrame implements KeyListener{ // implements Runnable{
 		checkLabel.setPreferredSize(new Dimension(300, 450));
 		checkLabel.setFont(new Font("Arial", Font.BOLD, 24));
 		checkPanel.add(checkLabel); */
-
+		speak("Hello this is Diction and Fiction", "/Users/jledinh/Documents/start.mp3");
 	}
-
+	
+	/*Runs the main code to create the gui*/
 	public static void main(final String[] args) {
 		SwingUtilities.invokeLater(new Runnable() {
 			public void run() {
-				TemplateConverter t = new TemplateConverter("/Users/annaxu/Documents/workspace/test/src/main/java/fsdf/file.txt");
+				TemplateConverter t = new TemplateConverter("/Users/jledinh/Documents/hello/src/main/java/file.txt");
 
 				//speechRun(args);
-
-
-				new dnf(t);
+				new dnf2(t);
 
 
 			}
@@ -213,7 +215,7 @@ public class dnf extends JFrame implements KeyListener{ // implements Runnable{
 
 
 		ManagedChannel channel = createChannel(host, port);
-		speech_to_text client = new speech_to_text(channel, sampling);
+		StreamingRecognizeClient2 client = new StreamingRecognizeClient2(channel, sampling);
 		try {
 			System.out.println("reach");
 			client.recognize();
@@ -237,7 +239,8 @@ public class dnf extends JFrame implements KeyListener{ // implements Runnable{
 		String args[]= null;
 		if (e.getKeyChar() == KeyEvent.VK_ENTER) {
 			//System.out.println(position);
-			if (position != t.getField().size()) {
+			System.out.println(position);
+			if (position < t.getField().size()) {
 				position += 1;
 				if (position != t.getField().size()) {
 					textLabel.setText(t.getField().get(position));
@@ -259,12 +262,14 @@ public class dnf extends JFrame implements KeyListener{ // implements Runnable{
 				}
 				validate();
 				repaint();
+				
 			}
-			else {
+			else if (position==t.getField().size()) {
 				for (int i=0;i<wordsList.size();i++) {
 					System.out.println(wordsList.get(i));
 				}
 				t.InsertField(wordsList);
+				/*
 				storyLabel = new JLabel();
 				storyLabel.setText(t.everything);
 				//storyLabel.setPreferredSize(new Dimension(400, 800));
@@ -272,16 +277,28 @@ public class dnf extends JFrame implements KeyListener{ // implements Runnable{
 				storyLabel.setHorizontalAlignment(SwingConstants.CENTER);
 				//alignment
 				//textPanel.add(textLabel);
-						
+				*/
+				storyArea = new JTextArea();
+				storyArea.setText(t.everything);
+				storyArea.setFont(new Font("Arial",Font.BOLD, 24));
+				storyArea.setLineWrap(true);
+				storyArea.setWrapStyleWord(true);
+				
 				textPanel.remove(textLabel);
 				textPanel.remove(inputLabel);
-				
-				textPanel.add(storyLabel);
+				textPanel.add(storyArea);
+				//textPanel.add(storyLabel);
 				//invalidate()/revalidate()?
 				//validate()??
 				//textPanel.validate, etc.??
 				revalidate();
 				repaint();
+				position++;
+				speak(t.everything, "/Users/jledinh/Documents/everything.mp3");
+			}
+			else{
+				
+				
 			}
 		}
 		//System.out.println(e.getID());
@@ -293,7 +310,6 @@ public class dnf extends JFrame implements KeyListener{ // implements Runnable{
 			//      	position += 1;
 			System.out.println("hi");
 			/*            	try {
-
 	            	validate();
 	            	repaint();
 				} catch (InterruptedException e1)
@@ -320,6 +336,16 @@ public class dnf extends JFrame implements KeyListener{ // implements Runnable{
 
 	public void keyReleased(KeyEvent e) {
 		// TODO Auto-generated method stub
+	}
+	/*Converts a string to an mp3 and then plays the mp3*/
+	public void speak(String say, String path) {
+		try {
+			TextToMp3 ttm = new TextToMp3(say, path);
+			JLayerPlayer j = new JLayerPlayer(ttm.pathname);
+		} catch (Exception e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
 	}
 
 }
