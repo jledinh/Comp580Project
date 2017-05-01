@@ -1,3 +1,4 @@
+package com.examples.cloud.speech;
 /*
  * Copyright 2016 Google Inc. All Rights Reserved.
  *
