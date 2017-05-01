@@ -25,8 +25,8 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.concurrent.Executors;
 
-
-public class dnf2 extends JFrame implements KeyListener{ // implements Runnable{	
+public class dnf2 extends JFrame implements KeyListener{ // implements Runnable{
+	final String []mp3s = {"adjective.mp3", "noun.mp3", "food.mp3", "animal.mp3", "number.mp3", "noun.mp3"};
 	private JPanel titlePanel, textPanel, checkPanel; // storyPanel;
 	private JLabel titleLabel, textLabel, checkLabel, inputLabel, storyLabel;
 	private JTextField inputText,checkText;
@@ -40,7 +40,6 @@ public class dnf2 extends JFrame implements KeyListener{ // implements Runnable{
 	private Integer port;
 	private Integer sampling;
 	private Options options;
-	
 	
 	
 	public dnf2(TemplateConverter a){
@@ -86,8 +85,8 @@ public class dnf2 extends JFrame implements KeyListener{ // implements Runnable{
 	}
 
 	private void createPanel() {
+		
 		getContentPane().setLayout(null);
-
 		titlePanel = new JPanel();
 		titlePanel.setBounds(0, 0, 1440, 200);
 		titlePanel.setBackground(new Color(0xC07F7F));
@@ -135,7 +134,8 @@ public class dnf2 extends JFrame implements KeyListener{ // implements Runnable{
 		checkLabel.setPreferredSize(new Dimension(300, 450));
 		checkLabel.setFont(new Font("Arial", Font.BOLD, 24));
 		checkPanel.add(checkLabel); */
-		speak("Hello this is Diction and Fiction", "/Users/jledinh/Documents/start.mp3");
+		speak("/Users/jledinh/Documents/dnf_mp3/start.mp3");
+		speak("/Users/jledinh/Documents/dnf_mp3/"+mp3s[position]);
 	}
 	
 	/*Runs the main code to create the gui*/
@@ -262,10 +262,11 @@ public class dnf2 extends JFrame implements KeyListener{ // implements Runnable{
 				}
 				validate();
 				repaint();
-				
+				speak("/Users/jledinh/Documents/dnf_mp3/"+mp3s[position]);
 			}
 			else if (position==t.getField().size()) {
 				for (int i=0;i<wordsList.size();i++) {
+					wordsList.set(i, wordsList.get(i).replace("\n", ""));
 					System.out.println(wordsList.get(i));
 				}
 				t.InsertField(wordsList);
@@ -294,7 +295,14 @@ public class dnf2 extends JFrame implements KeyListener{ // implements Runnable{
 				revalidate();
 				repaint();
 				position++;
-				speak(t.everything, "/Users/jledinh/Documents/everything.mp3");
+				try {
+					TextToMp3 ttm = new TextToMp3(t.everything, "/Users/jledinh/Documents/dnf_mp3/everything.mp3");
+					speak(ttm.pathname);
+				} catch (Exception e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
+				
 			}
 			else{
 				
@@ -338,10 +346,10 @@ public class dnf2 extends JFrame implements KeyListener{ // implements Runnable{
 		// TODO Auto-generated method stub
 	}
 	/*Converts a string to an mp3 and then plays the mp3*/
-	public void speak(String say, String path) {
+	public void speak(String path) {
 		try {
-			TextToMp3 ttm = new TextToMp3(say, path);
-			JLayerPlayer j = new JLayerPlayer(ttm.pathname);
+			//TextToMp3 ttm = new TextToMp3(say, path);
+			JLayerPlayer j = new JLayerPlayer(path);
 		} catch (Exception e1) {
 			// TODO Auto-generated catch block
 			e1.printStackTrace();
