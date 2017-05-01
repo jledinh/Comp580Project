@@ -1,4 +1,4 @@
-package com.examples.cloud.speech;
+package fsdf;
 /*
  * Copyright 2016 Google Inc. All Rights Reserved.
  *
@@ -60,7 +60,7 @@ import javax.sound.sampled.DataLine;
 import javax.sound.sampled.LineUnavailableException;
 import javax.sound.sampled.TargetDataLine;
 
-import opennlp.tools.namefind.*;
+//import opennlp.tools.namefind.*;
 /**
  * Client that sends streaming audio to Speech.Recognize and returns streaming transcript.
  */
