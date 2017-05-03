@@ -1,4 +1,4 @@
-package fsdf;
+package com.examples.cloud.speech;
 import javax.swing.*;
 
 import org.apache.commons.cli.CommandLine;
@@ -26,17 +26,36 @@ import java.util.List;
 import java.util.concurrent.Executors;
 
 public class dnf2 extends JFrame implements KeyListener{ // implements Runnable{
-//	final String []mp3s = {"adjective.mp3", "noun.mp3", "food.mp3", "animal.mp3", "number.mp3", "noun.mp3"};
-	//sports competition file
-//	final String []mp3s = {"name.mp3", "sport.mp3", "adjective.mp3", "place.mp3", "number.mp3", "number.mp3", 
-//			"animal.mp3", "name.mp3", "adjective.mp3", "verb_ed.mp3", "adverb.mp3"};
 	
-	final String []mp3s = {"name.mp3", "sport.mp3", "adjective.mp3", "place.mp3"};
+	
+	//Sports competition file
+	/*
+	final String []mp3s = {"name.mp3", "sport.mp3", "adjective.mp3", "place.mp3", "number.mp3", "number.mp3", 
+			"animal_s.mp3", "name.mp3", "adjective.mp3", "verb_ed.mp3", "adverb.mp3"};
+	*/
+	
+	//School
+	final String []mp3s = {"number.mp3","verb_ing.mp3", "place.mp3", "feeling.mp3", "noun.mp3", "noun.mp3", "clothing.mp3",
+			"time_of_day.mp3", "verb_motion.mp3", "vehicle.mp3", "noun.mp3", "subject.mp3"};
+	
+	//Mythical Beast Journey
+	/*
+	final String []mp3s = {"temperature_adjective.mp3", "place.mp3", "name.mp3", "noun.mp3", "city.mp3", "adjective.mp3",
+			"adjective.mp3", "time_of_day.mp3", "adjective.mp3", "mythical_beast.mp3", "number.mp3", "weapon.mp3", "verb_ed.mp3",
+			"mythical_beast2.mp3", "verb_ed.mp3"};
+	*/
+	
+	//Dictionland VS Fictionland
+	/*
+	final String []mp3s = {"number.mp3" , "animal_s.mp3", "instrument.mp3", "adjective.mp3", "name.mp3", "animal_same.mp3", 
+	"verb_ed.mp3" , "food.mp3"};
+	 */
 	private JPanel titlePanel, textPanel, checkPanel; // storyPanel;
 	private JLabel titleLabel, textLabel, checkLabel, inputLabel, storyLabel;
 	private JTextField inputText,checkText;
 	private TemplateConverter t;
 	private JTextArea storyArea;
+	private JScrollPane scrollPane;
 	public static ArrayList<String> wordsList= new ArrayList<String>();
 	int position;
 	int i=0;
@@ -55,7 +74,7 @@ public class dnf2 extends JFrame implements KeyListener{ // implements Runnable{
 		setLocationRelativeTo(null);
 		setResizable(true);
 		addKeyListener(this);
-		setSize(1440,800);	
+		setSize(1300,800);	
 		setVisible(true);
 		setFocusable(true);
 		position = 0;
@@ -93,7 +112,7 @@ public class dnf2 extends JFrame implements KeyListener{ // implements Runnable{
 		
 		getContentPane().setLayout(null);
 		titlePanel = new JPanel();
-		titlePanel.setBounds(0, 0, 1440, 200);
+		titlePanel.setBounds(0, 0, 1300, 200);
 		titlePanel.setBackground(new Color(0xC07F7F));
 		getContentPane().add(titlePanel);
 
@@ -104,7 +123,7 @@ public class dnf2 extends JFrame implements KeyListener{ // implements Runnable{
 
 
 		textPanel = new JPanel();
-		textPanel.setBounds(0, 200, 1440, 620);
+		textPanel.setBounds(0, 200, 1300, 620);
 		textPanel.setLayout(new GridLayout(3,1)); 
 		textPanel.setBackground(new Color(0xe9c97e));
 		//		getContentPane().add(textPanel);
@@ -139,15 +158,15 @@ public class dnf2 extends JFrame implements KeyListener{ // implements Runnable{
 		checkLabel.setPreferredSize(new Dimension(300, 450));
 		checkLabel.setFont(new Font("Arial", Font.BOLD, 24));
 		checkPanel.add(checkLabel); */
-		speak("/Users/annaxu/Documents/dnf_mp3/start.mp3");
-		speak("/Users/annaxu/Documents/dnf_mp3/"+mp3s[position]);
+		speak("/Users/jledinh/Documents/dnf_mp3/start.mp3");
+		speak("/Users/jledinh/Documents/dnf_mp3/"+mp3s[position]);
 	}
 	
 	/*Runs the main code to create the gui*/
 	public static void main(final String[] args) {
 		SwingUtilities.invokeLater(new Runnable() {
 			public void run() {
-				TemplateConverter t = new TemplateConverter("/Users/annaxu/Documents/workspace/test/src/main/java/fsdf/file2.txt");
+				TemplateConverter t = new TemplateConverter("/Users/jledinh/Documents/hello/src/main/java/school.txt");
 
 				//speechRun(args);
 				new dnf2(t);
@@ -255,9 +274,9 @@ public class dnf2 extends JFrame implements KeyListener{ // implements Runnable{
 				try {
 					//System.out.println(args);
 					String me= speechRun(args);
-					System.out.println(me);
-					inputLabel.setText(me);
-
+			//		System.out.println(me);
+		    		inputLabel.setText(me);
+					
 				} catch (InterruptedException e1) {
 					// TODO Auto-generated catch block
 					e1.printStackTrace();
@@ -268,12 +287,13 @@ public class dnf2 extends JFrame implements KeyListener{ // implements Runnable{
 				validate();
 				repaint();
 				if (position != t.getField().size()) {
-					speak("/Users/annaxu/Documents/dnf_mp3/"+mp3s[position]);
+					speak("/Users/jledinh/Documents/dnf_mp3/"+mp3s[position]);
 				}
 			}
 			else if (position==t.getField().size()) {
+				
 				for (int i=0;i<wordsList.size();i++) {
-					//wordsList.set(i, wordsList.get(i).replace("\n", ""));
+					wordsList.set(i, wordsList.get(i).replace("\n", ""));
 					System.out.println(wordsList.get(i));
 				}
 				t.InsertField(wordsList);
@@ -287,18 +307,27 @@ public class dnf2 extends JFrame implements KeyListener{ // implements Runnable{
 				//textPanel.add(textLabel);
 				*/
 				
-				storyArea = new JTextArea(50, 40);
+				
+				storyArea = new JTextArea(); //50,40
 				storyArea.setText(t.everything);
-				storyArea.setFont(new Font("Arial", Font.BOLD, 36));
-			//	storyArea.set
+				storyArea.setFont(new Font("Arial", Font.BOLD, 32));
+				storyArea.setBounds(0, 200, 1300, 620);
 				storyArea.setMargin(new Insets(50,50,50,50));
 				storyArea.setBackground(new Color(0xe9c97e));
 				storyArea.setLineWrap(true);
 				storyArea.setWrapStyleWord(true);
 				
+//				scrollPane = new JScrollPane();
+//				storyArea.add(scrollPane);
+//				scrollPane.setViewportView(storyArea);
+				
 				textPanel.remove(textLabel);
 				textPanel.remove(inputLabel);
+				
+				textPanel.setLayout(new GridLayout(1,1));
 				textPanel.add(storyArea);
+				getContentPane().add(textPanel);
+
 				//textPanel.add(storyLabel);
 				//invalidate()/revalidate()?
 				//validate()??
@@ -306,8 +335,9 @@ public class dnf2 extends JFrame implements KeyListener{ // implements Runnable{
 				revalidate();
 				repaint();
 				position++;
+				
 				try {
-					TextToMp3 ttm = new TextToMp3(t.everything, "/Users/annaxu/Documents/dnf_mp3/everything.mp3");
+					TextToMp3 ttm = new TextToMp3(t.everything, "/Users/jledinh/Documents/dnf_mp3/everything.mp3");
 					speak(ttm.pathname);
 				} catch (Exception e1) {
 					// TODO Auto-generated catch block
@@ -359,7 +389,7 @@ public class dnf2 extends JFrame implements KeyListener{ // implements Runnable{
 	/*Converts a string to an mp3 and then plays the mp3*/
 	public void speak(String path) {
 		try {
-			//TextToMp3 ttm = new TextToMp3(say, path);
+			//TextToMp3 ttm = new TextToMp3z(say, path);
 			JLayerPlayer j = new JLayerPlayer(path);
 		} catch (Exception e1) {
 			// TODO Auto-generated catch block
