@@ -64,7 +64,7 @@ import opennlp.tools.namefind.*;
  * Client that sends streaming audio to Speech.Recognize and returns streaming transcript.
  */
 
-public class StreamingRecognizeClient2 {
+public class StreamingRecognizeClient {
 
   private static final Logger logger = Logger.getLogger(StreamingRecognizeClient2.class.getName());
 
@@ -85,7 +85,7 @@ public class StreamingRecognizeClient2 {
   /**
    * Construct client connecting to Cloud Speech server at {@code host:port}.
    */
-  public StreamingRecognizeClient2(ManagedChannel channel, int samplingRate)
+  public StreamingRecognizeClient(ManagedChannel channel, int samplingRate)
       throws IOException {
     this.samplingRate = samplingRate;
     this.channel = channel;
@@ -316,7 +316,7 @@ public class StreamingRecognizeClient2 {
    
     
     ManagedChannel channel = createChannel(host, port);
-    StreamingRecognizeClient2 client = new StreamingRecognizeClient2(channel, sampling);
+    StreamingRecognizeClient client = new StreamingRecognizeClient(channel, sampling);
     try {
       client.recognize();
       client.shutdown();
