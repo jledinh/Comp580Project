@@ -16,9 +16,9 @@ group id: commons-cli
 artifact id: commons-cli   
 version: 1.4  
 
-group id: log4j
-artifact id: log4j
-version: 1.2.17  
+group id: log4j  
+artifact id: log4j  
+version: 1.2.17   
 
 
 
