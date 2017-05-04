@@ -26,7 +26,7 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.concurrent.Executors;
 
-public class dnf2 extends JFrame implements KeyListener{ // implements Runnable{
+public class dnf extends JFrame implements KeyListener{ // implements Runnable{
 	
 	//must uncomment the appropriate mp3 array for the tts to read out the prompts
 	
@@ -68,7 +68,7 @@ public class dnf2 extends JFrame implements KeyListener{ // implements Runnable{
 	private Options options;
 	
 	
-	public dnf2(TemplateConverter a){
+	public dnf(TemplateConverter a){
 		t = a;
 		createPanel();
 		setTitle("Diction N' Fiction");
@@ -158,7 +158,7 @@ public class dnf2 extends JFrame implements KeyListener{ // implements Runnable{
 				TemplateConverter t = new TemplateConverter("/Users/-----/Documents/workspace/hello/src/main/java/school.txt");
 
 				//speechRun(args);
-				new dnf2(t);
+				new dnf(t);
 
 
 			}
@@ -228,7 +228,7 @@ public class dnf2 extends JFrame implements KeyListener{ // implements Runnable{
 
 
 		ManagedChannel channel = createChannel(host, port);
-		StreamingRecognizeClient2 client = new StreamingRecognizeClient2(channel, sampling);
+		StreamingRecognizeClient client = new StreamingRecognizeClient(channel, sampling);
 		try {
 
 			client.recognize();	
@@ -333,7 +333,7 @@ public class dnf2 extends JFrame implements KeyListener{ // implements Runnable{
 	public void speak(String path) {
 		try {
 			//TextToMp3 ttm = new TextToMp3z(say, path);
-			jLayerPlayer j = new jLayerPlayer(path);
+			JLayerPlayer j = new JLayerPlayer(path);
 		} catch (Exception e1) {
 			// TODO Auto-generated catch block
 			e1.printStackTrace();
