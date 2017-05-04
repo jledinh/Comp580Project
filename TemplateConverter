@@ -1,15 +1,15 @@
-package com.examples.cloud.speech;
+
 import java.util.ArrayList;
 import java.util.List;
 
-import model.TextToSpeech;
+//import model.TextToSpeech;
 
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import marytts.modules.synthesis.Voice;
+//import marytts.modules.synthesis.Voice;
 
 public class TemplateConverter {
 	public String everything;
@@ -76,15 +76,6 @@ public class TemplateConverter {
 	}
 	public int FieldSize() {
 		return fieldlist.size();
-	}
-	
-	public void Speak() {
-		TextToSpeech tts = new TextToSpeech();
-		// Setting the Voice
-		tts.setVoice("dfki-poppy-hsmm");
-
-		// TTS say something that we actually are typing into the first variable
-		tts.speak(everything, 2.0f, false, true);
 	}
 	
 	public ArrayList<String> getField() {
