@@ -1,6 +1,7 @@
-package com.examples.cloud.speech;
+
 import javax.swing.*;
 
+import java.util.Scanner;
 import org.apache.commons.cli.CommandLine;
 import org.apache.commons.cli.CommandLineParser;
 import org.apache.commons.cli.DefaultParser;
@@ -27,10 +28,11 @@ import java.util.concurrent.Executors;
 
 public class dnf2 extends JFrame implements KeyListener{ // implements Runnable{
 	
+	//must uncomment the appropriate mp3 array for the tts to read out the prompts
 	
 	//Sports competition file
-	/*
-	final String []mp3s = {"name.mp3", "sport.mp3", "adjective.mp3", "place.mp3", "number.mp3", "number.mp3", 
+	
+/*	final String []mp3s= {"name.mp3", "sport.mp3", "adjective.mp3", "place.mp3", "number.mp3", "number.mp3", 
 			"animal_s.mp3", "name.mp3", "adjective.mp3", "verb_ed.mp3", "adverb.mp3"};
 	*/
 	
@@ -39,17 +41,17 @@ public class dnf2 extends JFrame implements KeyListener{ // implements Runnable{
 			"time_of_day.mp3", "verb_motion.mp3", "vehicle.mp3", "noun.mp3", "subject.mp3"};
 	
 	//Mythical Beast Journey
-	/*
-	final String []mp3s = {"temperature_adjective.mp3", "place.mp3", "name.mp3", "noun.mp3", "city.mp3", "adjective.mp3",
+	
+/*	final String []mp3s = {"temperature_adjective.mp3", "place.mp3", "name.mp3", "noun.mp3", "city.mp3", "adjective.mp3",
 			"adjective.mp3", "time_of_day.mp3", "adjective.mp3", "mythical_beast.mp3", "number.mp3", "weapon.mp3", "verb_ed.mp3",
-			"mythical_beast2.mp3", "verb_ed.mp3"};
-	*/
+			 "verb_ed.mp3"};
+*/
 	
 	//Dictionland VS Fictionland
 	/*
 	final String []mp3s = {"number.mp3" , "animal_s.mp3", "instrument.mp3", "adjective.mp3", "name.mp3", "animal_same.mp3", 
 	"verb_ed.mp3" , "food.mp3"};
-	 */
+	*/ 
 	private JPanel titlePanel, textPanel, checkPanel; // storyPanel;
 	private JLabel titleLabel, textLabel, checkLabel, inputLabel, storyLabel;
 	private JTextField inputText,checkText;
@@ -126,7 +128,7 @@ public class dnf2 extends JFrame implements KeyListener{ // implements Runnable{
 		textPanel.setBounds(0, 200, 1300, 620);
 		textPanel.setLayout(new GridLayout(3,1)); 
 		textPanel.setBackground(new Color(0xe9c97e));
-		//		getContentPane().add(textPanel);
+
 
 		textLabel = new JLabel(t.getField().get(position), SwingConstants.CENTER); //SwingConstants.CENTER
 		textLabel.setPreferredSize(new Dimension(400, 800));
@@ -140,33 +142,20 @@ public class dnf2 extends JFrame implements KeyListener{ // implements Runnable{
 		inputLabel.setHorizontalAlignment(SwingConstants.CENTER);
 		textPanel.add(inputLabel);
 
-//		inputText = new JTextField();
-//		//		TODO: make word spoken appear in the box
-//		inputText.setPreferredSize(new Dimension(250, 50));
-//		inputText.setText("Batman"); //insert input word...
-//		inputText.setFont(new Font("Arial", Font.BOLD, 24));
-//		textPanel.add(inputText);
 
 		getContentPane().add(textPanel);
 
 
-		/* 		checkPanel= new JPanel();
-		checkPanel.setBounds(0,601,600,480);
-		checkPanel.setBackground(new Color(0xffffff));
-		getContentPane().add(checkPanel);
-		checkLabel = new JLabel("Did you mean "+ t.getField().get(position) +" ?");
-		checkLabel.setPreferredSize(new Dimension(300, 450));
-		checkLabel.setFont(new Font("Arial", Font.BOLD, 24));
-		checkPanel.add(checkLabel); */
-		speak("/Users/jledinh/Documents/dnf_mp3/start.mp3");
-		speak("/Users/jledinh/Documents/dnf_mp3/"+mp3s[position]);
+		speak("/Users/----/Documents/dnf_mp3/start.mp3");
+		speak("/Users/----/Documents/dnf_mp3/"+mp3s[position]);
 	}
 	
 	/*Runs the main code to create the gui*/
 	public static void main(final String[] args) {
 		SwingUtilities.invokeLater(new Runnable() {
 			public void run() {
-				TemplateConverter t = new TemplateConverter("/Users/jledinh/Documents/hello/src/main/java/school.txt");
+// must run change the hardcoded file path in order to get the correct story
+				TemplateConverter t = new TemplateConverter("/Users/-----/Documents/workspace/hello/src/main/java/school.txt");
 
 				//speechRun(args);
 				new dnf2(t);
@@ -241,11 +230,10 @@ public class dnf2 extends JFrame implements KeyListener{ // implements Runnable{
 		ManagedChannel channel = createChannel(host, port);
 		StreamingRecognizeClient2 client = new StreamingRecognizeClient2(channel, sampling);
 		try {
-			System.out.println("reach");
-			client.recognize();
-			System.out.println("reached");
+
+			client.recognize();	
 			client.shutdown();
-			System.out.println("reach12");
+
 			wordsList = client.wordsList;
 			//System.out.println(client.wordsList.get());
 		
@@ -269,13 +257,10 @@ public class dnf2 extends JFrame implements KeyListener{ // implements Runnable{
 				if (position != t.getField().size()) {
 					textLabel.setText(t.getField().get(position));
 				}
-				//validate();
-				//repaint();
+
 				try {
-					//System.out.println(args);
 					String me= speechRun(args);
-			//		System.out.println(me);
-		    		inputLabel.setText(me);
+				    inputLabel.setText(me);
 					
 				} catch (InterruptedException e1) {
 					// TODO Auto-generated catch block
@@ -287,7 +272,7 @@ public class dnf2 extends JFrame implements KeyListener{ // implements Runnable{
 				validate();
 				repaint();
 				if (position != t.getField().size()) {
-					speak("/Users/jledinh/Documents/dnf_mp3/"+mp3s[position]);
+					speak("/Users/-----/Documents/dnf_mp3/"+mp3s[position]);
 				}
 			}
 			else if (position==t.getField().size()) {
@@ -297,15 +282,7 @@ public class dnf2 extends JFrame implements KeyListener{ // implements Runnable{
 					System.out.println(wordsList.get(i));
 				}
 				t.InsertField(wordsList);
-				/*
-				storyLabel = new JLabel();
-				storyLabel.setText(t.everything);
-				//storyLabel.setPreferredSize(new Dimension(400, 800));
-				storyLabel.setFont(new Font("Arial", Font.BOLD, 24));
-				storyLabel.setHorizontalAlignment(SwingConstants.CENTER);
-				//alignment
-				//textPanel.add(textLabel);
-				*/
+		
 				
 				
 				storyArea = new JTextArea(); //50,40
@@ -316,11 +293,7 @@ public class dnf2 extends JFrame implements KeyListener{ // implements Runnable{
 				storyArea.setBackground(new Color(0xe9c97e));
 				storyArea.setLineWrap(true);
 				storyArea.setWrapStyleWord(true);
-				
-//				scrollPane = new JScrollPane();
-//				storyArea.add(scrollPane);
-//				scrollPane.setViewportView(storyArea);
-				
+								
 				textPanel.remove(textLabel);
 				textPanel.remove(inputLabel);
 				
@@ -328,16 +301,12 @@ public class dnf2 extends JFrame implements KeyListener{ // implements Runnable{
 				textPanel.add(storyArea);
 				getContentPane().add(textPanel);
 
-				//textPanel.add(storyLabel);
-				//invalidate()/revalidate()?
-				//validate()??
-				//textPanel.validate, etc.??
 				revalidate();
 				repaint();
 				position++;
 				
 				try {
-					TextToMp3 ttm = new TextToMp3(t.everything, "/Users/jledinh/Documents/dnf_mp3/everything.mp3");
+					TextToMp3 ttm = new TextToMp3(t.everything, "/Users/-----/Documents/dnf_mp3/everything.mp3");
 					speak(ttm.pathname);
 				} catch (Exception e1) {
 					// TODO Auto-generated catch block
@@ -350,33 +319,7 @@ public class dnf2 extends JFrame implements KeyListener{ // implements Runnable{
 				
 			}
 		}
-		//System.out.println(e.getID());
-		//	System.out.println("hi");
-		
-		if (e.getKeyChar() == KeyEvent.VK_A) {
-			// System.out.println(position);
-			//       if (position != t.getField().size() - 1) {
-			//      	position += 1;
-			System.out.println("hi");
-			/*            	try {
-	            	validate();
-	            	repaint();
-				} catch (InterruptedException e1)
-				 {
-					// TODO Auto-generated catch block
-					e1.printStackTrace();
-				} catch (IOException e1) {
-					// TODO Auto-generated catch block
-					e1.printStackTrace();
-				}*/
-			//     	validate();
-			//     	repaint();
-			//    }
-			//    else {
-			//   	textLabel.setText(t.everything);
-			//  	validate();
-			//  	repaint();
-		}
+
 	}
 
 	public void keyPressed(KeyEvent e) {
@@ -390,7 +333,7 @@ public class dnf2 extends JFrame implements KeyListener{ // implements Runnable{
 	public void speak(String path) {
 		try {
 			//TextToMp3 ttm = new TextToMp3z(say, path);
-			JLayerPlayer j = new JLayerPlayer(path);
+			jLayerPlayer j = new jLayerPlayer(path);
 		} catch (Exception e1) {
 			// TODO Auto-generated catch block
 			e1.printStackTrace();
