@@ -8,11 +8,17 @@ This is our final project for COMP 580. For now, this only works locally and mus
 
 In order to set the project up you have to set up the Google SDK and verify your account. You will then need to go to the Eclipse Marketplace and search then download the Google Plugin for Eclipse. After that, you will need to login in with your google account clicking the G button at the top. Then you can create a new maven based google project. In the pom.xml file of your new maven project, you must import several maven dependencies:
 
-group id: com.google.cloud
+group id: com.google.cloud  
+artifact id: google-cloud-speech  
+version: 0.9.3-alpha  
 
-artifact id: google-cloud-speech
+group id: commons-cli    
+artifact id: commons-cli   
+version: 1.4  
 
-version: 0.9.3-alpha
+group id:  
+artifact id: google-cloud-speech  
+version: 0.9.3-alpha  
 
 
 
